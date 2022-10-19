@@ -16,6 +16,7 @@ const Person = require('./models/person')
 //const url = `mongodb+srv://admin:4dmin@cluster0.mpathsm.mongodb.net/Phonebookdb?retryWrites=true&w=majority`  //this will be delete after
 
 //mongoose.connect(url) //conectin to moongose
+
 //--------------------------------------------------------------------------------------
 /*const personSchema = new mongoose.Schema({
     name: String,
@@ -41,7 +42,7 @@ app.use(cors())
 
 app.use(express.json()) //json parser of express
 
-/*let persons = [
+let persons = [
     { 
       "id": 1,
       "name": "Arto Hellas", 
@@ -62,9 +63,12 @@ app.use(express.json()) //json parser of express
       "name": "Mary Poppendieck", 
       "number": "39-23-6423122"
     }
-]*/
+]
 
-let info ={ 'info': `<p>Phonebook has info for ${ Person.length } people</p>`,'date': `<p>${ new Date() }</p>` }
+let info ={
+    "info": `<p>Phonebook has info for ${persons.length} people</p>`,
+    "date": `<p>${new Date()}</p>`
+}
 
 //midleware to loggin the content of the request
 const requestLogger = (request, response, next) => {
@@ -90,13 +94,13 @@ app.use(morgan('tiny'))
 
 //get all of the data
 app.get('/api/persons', (request, response) => {
-    Person.find({}).then(persons => {
+    Person.find({}).then(persons =>{
         response.json(persons)
     })
 })
 
 //get info
-app.get('/info', (request, response) => {
+app.get('/info', (request, response)=>{
     response.send(info.info + info.date)
 })
 
